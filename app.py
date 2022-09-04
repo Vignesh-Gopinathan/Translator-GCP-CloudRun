@@ -9,7 +9,6 @@ st.title('Text translator from English to French')
 
 
 def download_model():
-    os.mkdir('./models/')
     with open("app_config.yaml", 'r') as f:
         dirs = yaml.load(f, Loader=yaml.FullLoader)
         cloud_model_dir = dirs['cloud_model_dir']
@@ -41,8 +40,10 @@ def load_model():
 
 
 if list(Path('models/').glob('*.h5')):
+    st.write('Model already download. Loading model.....')
     translator = load_model()
 else:
+    st.write('Model not found. Downloading model.....')
     download_model()
     translator = load_model()
 
