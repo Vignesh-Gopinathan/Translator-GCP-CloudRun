@@ -10,8 +10,13 @@ steps:
   waitFor: ['build-docker-image']
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
+  - 'run'
   - 'deploy'
+  - 'translator'
   - '--image'
-  - 'gcr.io/$PROJECT_ID/app:v1'
+  - 'gcr.io/$PROJECT_ID/translator:v1'
+  - '--region'
+  - 'us-west1'
+  - '--allow-unauthenticated'
   id: 'deploy-container'
   waitFor: ['push-docker-image']
