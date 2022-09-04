@@ -31,7 +31,7 @@ def download_model():
     print('All models downloaded from Cloud storage')
 
 
-@st.cache(allow_output_mutation=True)
+#@st.cache(allow_output_mutation=True)
 def load_model():
     model_dir = 'models/'
     tokenizer = AutoTokenizer.from_pretrained(model_dir)
