@@ -1,13 +1,7 @@
 import streamlit as st
 from transformers import pipeline, AutoTokenizer, TFAutoModelForSeq2SeqLM
-import yaml
-from google.cloud import storage
-import os
-from pathlib import Path
 
-st.title('Text translator from English to French')
-
-
+'''
 def download_model():
     with open("app_config.yaml", 'r') as f:
         dirs = yaml.load(f, Loader=yaml.FullLoader)
@@ -28,9 +22,10 @@ def download_model():
                     blob.download_to_filename(destination_file_name)
 
     print('All models downloaded from Cloud storage')
+'''
 
 
-#@st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation=True)
 def load_model():
     model_dir = 'models/'
     tokenizer = AutoTokenizer.from_pretrained(model_dir)
@@ -39,6 +34,7 @@ def load_model():
     return translator_pipe
 
 
+'''
 if list(Path('models/').glob('*.h5')) and list(Path('models/').glob('*.json')):
     st.write('Model already download. Loading model.....')
     translator = load_model()
@@ -50,13 +46,17 @@ else:
         st.write(list(Path('models/').glob('*')))
     st.write('Downloaded model. Loading model.....')
     translator = load_model()
+'''
 
-text = st.text_input('Input text (required):', 'Please enter the text to be translated here.')
-if not text:
-    st.warning("Please fill out so required fields")
+if __name__ == '__main__':
+    st.title('Text translator from English to French')
+    translator = load_model()
+    text = st.text_input('Input text (required):', 'Please enter the text to be translated here.')
+    if not text:
+        st.warning("Please fill out so required fields")
 
-with st.spinner('Translating...'):
-    if st.button('Translate'):
-        result = translator(text)
-        st.write('Translated text:')
-        st.write(result[0]['translation_text'])
+    with st.spinner('Translating...'):
+        if st.button('Translate'):
+            result = translator(text)
+            st.write('Translated text:')
+            st.write(result[0]['translation_text'])

@@ -21,5 +21,8 @@ RUN pip install -r requirements.txt
 # Expose port
 EXPOSE 8080
 
+# Download model.
+CMD ["python", "download_model.py"]
+
 # Run the app.
 CMD ["streamlit", "run", "--server.headless=true", "--server.port=8080", "app.py"]
