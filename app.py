@@ -47,6 +47,7 @@ else:
     download_model()
     if not(list(Path('models/').glob('*.h5')) and list(Path('models/').glob('*.json'))):
         st.write('Downloaded model not found')
+        print(Path('models/'))
     st.write('Downloaded model. Loading model.....')
     translator = load_model()
 
