@@ -39,12 +39,15 @@ def load_model():
     return translator_pipe
 
 
-if list(Path('models/').glob('*.h5')):
+if list(Path('models/').glob('*.h5')) and list(Path('models/').glob('*.json')):
     st.write('Model already download. Loading model.....')
     translator = load_model()
 else:
     st.write('Model not found. Downloading model.....')
     download_model()
+    if not(list(Path('models/').glob('*.h5')) and list(Path('models/').glob('*.json'))):
+        st.write('Downloaded model not found')
+    st.write('Downloaded model. Loading model.....')
     translator = load_model()
 
 text = st.text_input('Input text (required):', 'Please enter the text to be translated here.')
