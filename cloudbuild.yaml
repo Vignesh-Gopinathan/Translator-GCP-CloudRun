@@ -1,0 +1,17 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/translator:v1', '.']
+  timeout: 180s
+  id: 'build-docker-image'
+  waitFor: ['-']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/translator:v1']
+  id: 'push-docker-image'
+  waitFor: ['build-docker-image']
+-  name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'deploy'
+  - '--image'
+  - 'gcr.io/$PROJECT_ID/app:v1'
+  id: 'deploy-container'
+  waitFor: ['push-docker-image']
