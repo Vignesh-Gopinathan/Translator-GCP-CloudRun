@@ -28,3 +28,6 @@ if __name__ == '__main__':
         pass
     else:
         download_model()
+        print(list(Path('models/').glob('*.h5')))
+        print(list(Path('models/').glob('*.json')))
+
