@@ -24,8 +24,6 @@ def download_model():
                     destination_file_name = 'models/' + blob.name.split('/')[-1]
                     blob.download_to_filename(destination_file_name)
 
-    print('All models downloaded from Cloud storage')
-
 
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -44,6 +42,8 @@ if __name__ == '__main__':
     else:
         st.write('Model not found. Downloading model.....')
         download_model()
+        st.write(list(Path('models/').glob('*.h5')))
+        st.write(list(Path('models/').glob('*.json')))
         st.write('Downloaded model. Loading model.....')
         translator = load_model()
 
