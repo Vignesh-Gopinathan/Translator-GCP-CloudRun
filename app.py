@@ -2,7 +2,6 @@ import streamlit as st
 from transformers import pipeline, AutoTokenizer, TFAutoModelForSeq2SeqLM
 import yaml
 from google.cloud import storage
-from google import auth
 import os
 from pathlib import Path
 
@@ -10,6 +9,7 @@ st.title('Text translator from English to French')
 
 
 def download_model():
+    os.mkdir('./models/')
     with open("app_config.yaml", 'r') as f:
         dirs = yaml.load(f, Loader=yaml.FullLoader)
         cloud_model_dir = dirs['cloud_model_dir']
@@ -31,7 +31,7 @@ def download_model():
     print('All models downloaded from Cloud storage')
 
 
-#@st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation=True)
 def load_model():
     model_dir = 'models/'
     tokenizer = AutoTokenizer.from_pretrained(model_dir)
