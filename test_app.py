@@ -16,10 +16,9 @@ def download_model():
     print('\nBuckets:')
     for bucket in buckets:
         print('\t', bucket.name)
-
-        blobs = storage_client.list_blobs(bucket)
-        for blob in blobs:
-            if cloud_model_dir in blob.name:
+        if cloud_model_dir == bucket.name:
+            blobs = storage_client.list_blobs(bucket)
+            for blob in blobs:
                 if blob.name.endswith('.h5') or blob.name.endswith('.json'):
                     destination_file_name = 'models/' + blob.name.split('/')[-1]
                     blob.download_to_filename(destination_file_name)
