@@ -22,7 +22,7 @@ RUN pip install -r requirements.txt
 EXPOSE 8080
 
 # Download model.
-CMD ["python", "download_model.py"]
+RUN chmod a+x run.sh
 
 # Run the app.
-CMD ["streamlit", "run", "--server.headless=true", "--server.port=8080", "app.py"]
+CMD ["./run.sh"]
