@@ -8,7 +8,7 @@ steps:
   args: ['push', 'gcr.io/$PROJECT_ID/translator:v1']
   id: 'push-docker-image'
   waitFor: ['build-docker-image']
--  name: 'gcr.io/cloud-builders/gcloud'
+- name: 'gcr.io/cloud-builders/gcloud'
   args:
   - 'deploy'
   - '--image'
